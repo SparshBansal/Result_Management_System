@@ -12,7 +12,7 @@ var memberSchema = mongoose.Schema({
     memberType: {type: Number, required: true},
     address: {type: String},
     age: {type: Number},
-    email: {type: Number}
+    email: {type: String}
 });
 
 memberSchema.methods.name = function () {
@@ -31,11 +31,12 @@ memberSchema.pre('save', function (done) {
         if (error) {
             done(error);
         }
-        bcrypt.hash(user.password, salt, noop, function (error, hashedPassword) {
+        bcrypt.hash(member.password, salt, noop, function (error, hashedPassword) {
             if (error) {
                 done(error);
             }
-            this.password = hashedPassword;
+            console.log(hashedPassword);
+            member.password = hashedPassword;
             done();
         });
     })
@@ -47,5 +48,5 @@ memberSchema.methods.checkPassword = function(guess,done){
     });
 };
 
-var Member = mongoose.model(memberSchema);
+var Member = mongoose.model("Member",memberSchema);
 module.exports = Member;

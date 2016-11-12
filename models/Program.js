@@ -1,7 +1,7 @@
 /**
  * Created by sparsh on 11/11/16.
  */
-var moongoose = require('mongoose');
+var mongoose = require('mongoose');
 
 var programSchema = mongoose.Schema({
     code : {type: String , required : true , unique : true},
@@ -10,5 +10,5 @@ var programSchema = mongoose.Schema({
     schema : {type : Array}
 });
 
-var Program = mongoose.model(programSchema);
+var Program = mongoose.model("Program",programSchema);
 module.exports = Program;

@@ -1,12 +1,53 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
     <link rel="stylesheet" href="/stylesheets/semantic.min.css"/>
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+
+    <style type="text/css">
+        body {
+            background-color: #DADADA;
+        }
+        body > .grid {
+            height: 100%;
+        }
+        .column {
+            max-width: 450px;
+        }
+    </style>
+
+</head>
+<body>
+<div class="ui middle aligned center aligned grid">
+    <div class="column">
+        <h2 class="ui teal header">
+            <div class="content">
+                Welcome to RMS
+            </div>
+        </h2>
+        <div class="ui horizontal divider">
+            Login
+        </div>
+        <form class="ui large form" action="/login" method="POST">
+            <div class="ui stacked segment">
+                <div class="field">
+                    <input name="username" type="text" placeholder="username"/>
+                </div>
+                <div class="field">
+                    <input name="password" type="password" placeholder="password"/>
+                </div>
+                <input type="submit" value="Login" class="ui fluid large teal submit button"/>
+            </div>
+        </form>
+        <% errors.forEach(function(error){ %>
+           <div class="ui warning message">
+                <div class="header">
+                    <%= error %>
+                </div>
+           </div>
+        <% }); %>
+    </div>
+</div>
+</body>
 </html>

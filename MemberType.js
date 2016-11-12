@@ -7,3 +7,5 @@ var MemberType = Object.freeze({
     FACULTY: 3,
     STAFF: 4
 });
+
+module.exports = MemberType;

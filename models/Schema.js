@@ -11,5 +11,5 @@ var schema = mongoose.Schema({
     programCode : {type : String , required : true}
 });
 
-var Schema = mongoose.model(schema);
+var Schema = mongoose.model("Schema",schema);
 module.exports = Schema;

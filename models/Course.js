@@ -1,7 +1,7 @@
 /**
  * Created by sparsh on 11/11/16.
  */
-var mongooose = require('mongoose');
+var mongoose = require('mongoose');
 
 var courseSchema = mongoose.Schema({
     courseName: {type: String, required: true, unique: true},
@@ -10,5 +10,5 @@ var courseSchema = mongoose.Schema({
     hours: {type: Number}
 });
 
-var Course = mongoose.model(courseSchema);
+var Course = mongoose.model("Course",courseSchema);
 module.exports = Course;
