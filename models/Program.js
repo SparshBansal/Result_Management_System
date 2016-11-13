@@ -7,7 +7,7 @@ var programSchema = mongoose.Schema({
     code : {type: String , required : true , unique : true},
     name : {type: String},
     semesterCount : {type : Number},
-    schema : {type : Array}
+    semester : {type : Array}
 });
 
 var Program = mongoose.model("Program",programSchema);

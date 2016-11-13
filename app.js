@@ -18,6 +18,7 @@ var LocalStrategy = require('passport-local');
 var routes = require('./routes/index');
 var login = require('./routes/login');
 var dashboard = require('./routes/dashboard');
+var api = require('./routes/api');
 
 var app = express();
 
@@ -32,6 +33,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '.')));
 
 // Connect to the database
 mongoose.connect('mongodb://localhost:27017/SEDb');
@@ -95,7 +97,7 @@ passport.deserializeUser(function (_id,done) {
 app.use('/', routes);
 app.use('/login', login);
 app.use('/dashboard',dashboard);
-
+app.use('/api',api);
 //........................ERROR HANDLERS.......................................
 
 // catch 404 and forward to error handler

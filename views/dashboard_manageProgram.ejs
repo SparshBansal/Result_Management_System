@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Manage Programs</title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel="stylesheet" href="/stylesheets/semantic.min.css"/>
+    <script src="/javascripts/jquery-3.1.0.min.js"></script>
+    <script src="/javascripts/semantic.js"></script>
+    <script src="/javascripts/script.managePrograms.js"></script>
+</head>
+<body>
+<h1 class="ui teal header" style="margin-top: 32px ; margin-left: 32px ; margin-bottom: 32px">Dashboard</h1>
+<div class="ui divider"></div>
+<div class="container" style="padding: 32px">
+    <div class="ui stacked segment">
+        <div class="ui large form" id="search_form">
+            <div class="ui grid">
+                <div class="eight wide column">
+                    <div class="field">
+                        <input type="text" name="programNameSearch" placeholder="Program Name"/>
+                    </div>
+                </div>
+                <div class="four wide column">
+                    <input type="button" class="ui fluid large teal button" value="View" id="b_view_program">
+                </div>
+                <div class="four wide column">
+                    <input type="button" class="ui fluid large teal button" value="Delete" id="b_delete_program">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui stacked segment">
+        <form class="ui large form" id="program_form">
+            <div class="ui grid">
+                <div class="eight wide column">
+                    <div class="field">
+                        <label>Program Code</label>
+                        <input name="programCode" type="text" placeholder="Program Code" id="program_code"/>
+                    </div>
+                </div>
+                <div class="eight wide column">
+                    <div class="field">
+                        <label>Number of Semesters</label>
+                        <input name="semsterCount" type="number" placeholder="Number of Semesters" id="num_sems"/>
+                    </div>
+                </div>
+
+                <div class="sixteen wide column">
+                    <div class="field">
+                        <label>Program Name</label>
+                        <input name="programName" type="text" placeholder="Program Name" id="program_name"/>
+                    </div>
+                </div>
+
+                <div class="sixteen wide column">
+                    <input type="button" value="Add Program" class="ui fluid large teal button" id="b_add_program"/>
+                </div>
+
+                <div class="sixteen wide column">
+                    <input type="button" value="Add Semester" class="ui fluid large teal button" id="b_add_semster"/>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <!--Container for entering semester information-->
+    <div id="semster_container"></div>
+
+    <!--Modal dialog box for selecting courses-->
+    <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+            Select a Course
+        </div>
+        <div class="ui middle aligned selection list">
+            <% courses.forEach(function(course){ %>
+                <div class="item list_item" style="padding: 16px;" data-value="<%= course.courseName %>">
+                    <div class="content">
+                        <div class="header">
+                            <%= course.courseName %>
+                        </div>
+                        Maximum Marks : <%= course.maxMarks %> , Hours : <%= course.hours %> , Credits <%= course.credits %>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</div>
+</body>
+</html>
