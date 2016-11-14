@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Manage Courses</title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+
+    <link rel="stylesheet" href="/stylesheets/semantic.min.css"/>
+
+    <script src="/javascripts/jquery-3.1.0.min.js"></script>
+    <script src="/javascripts/ejs.min.js"></script>
+
+    <script src="/javascripts/script.manageMarks.js"></script>
+
+    <style>
+        body {
+        }
+    </style>
+</head>
+<body>
+<h1 class="ui teal header" style="margin-top: 32px ; margin-left: 32px ; margin-bottom: 32px">Dashboard</h1>
+<div class="ui divider"></div>
+<div class="container" style="padding: 32px">
+    <div class="ui stacked segment">
+        <h2 class="ui header">Student Details</h2>
+        <div class="ui large form" id="search_form">
+            <div class="ui grid">
+                <div class="eight wide column">
+                    <div class="field">
+                        <label>Student Id</label>
+                        <input type="text" name="studentIdSearch" placeholder="Student Id"/>
+                    </div>
+                </div>
+                <div class="eight wide column">
+                    <div class="field">
+                        <label>Semester</label>
+                        <input type="text" name="semesterSearch" placeholder="Semester"/>
+                    </div>
+                </div>
+                <div class="eight wide column">
+                    <input type="button" class="ui fluid large teal button" value="View" id="b_view_marks">
+                </div>
+                <div class="eight wide column">
+                    <input type="button" class="ui fluid large teal button" value="Delete" id="b_delete_marks">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="marksContainer" style="padding: 32px"></div>
+</body>
+</html>
