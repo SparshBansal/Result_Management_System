@@ -36,7 +36,10 @@ $(document).ready(function () {
     });
 
     $('#b_view_program').click(function(event){
-
+        var programCode = $(document).find('input[name="programNameSearch"]').val();
+        $.get('/dashboard/manageProgram/view',{programCode:programCode}).done(function(data){
+            document.write(data);
+        });
     });
 
     $('#b_add_semster').click(function (event) {
@@ -68,23 +71,26 @@ $(document).ready(function () {
 /***************************Utility Functions*************************************/
 
 var incrementSemesterCount = function () {
-    var num_sems = Number($('#program_form').find('input[name="semsterCount"]').val());
+    var num_sems = Number($('#program_form').find('.ui.header.num_sems')[0].textContent);
     if (num_sems)
         num_sems += 1;
     else
         num_sems = 1;
 
-    $('#program_form').find('input[name="semsterCount"]').val(num_sems.toString());
+    $('#program_form').find('.ui.header.num_sems')[0].textContent = (num_sems.toString());
 };
 
 var incrementCoursesInSemester = function (semester) {
     var semesterSegmentId = '#semester_' + semester.toString();
-    var numCoursesInput = $(semesterSegmentId).find('input[name="courseCount"]').val();
+    var header = $(semesterSegmentId).find('.ui.header.num_courses');
+
+    var numCoursesInput = $(semesterSegmentId).find('.ui.header.num_courses')[0].textContent;
     if (numCoursesInput) {
-        $(semesterSegmentId).find('input[name="courseCount"]').val(((Number(numCoursesInput) + 1).toString()));
+        console.log(numCoursesInput);
+        $(semesterSegmentId).find('.ui.header.num_courses')[0].textContent = ((Number(numCoursesInput) + 1).toString());
     }
     else {
-        $(semesterSegmentId).find('input[name="courseCount"]').val(((1).toString()));
+        $(semesterSegmentId).find('.ui.header.num_courses').val(((1).toString()));
     }
 };
 
@@ -102,15 +108,13 @@ var getCourseDiv = function (course) {
 };
 
 var getNewSemesterFormChild = function () {
-    var segmentHtml = `<div class="ui horizontal divider">Semester ` + (current_sem + 1).toString() + `</div>
-<div class="ui stacked segment" id="semester_` + current_sem.toString() + `" data-index="` + current_sem.toString() + `">
+    var segmentHtml = `<div class="ui stacked segment " id="semester_` + current_sem.toString() + `" data-index="` + current_sem.toString() + `">
+    <h3 class="ui header">Semester `+ (current_sem + 1).toString() +` </h3>
     <form class="ui large form" id="semster_form">
         <div class="ui grid">
             <div class="sixteen wide column">
-                <div class="field">
-                    <label>Number of Courses</label>
-                    <input name="courseCount" type="text" placeholder="Number of Courses"/>
-                </div>
+               <label>Number of Courses</label>
+               <h3 class="ui header num_courses">0</h3>
             </div>
             <div class="sixteen wide column">
                 <input type="button" value="Add Course" class="ui fluid large teal button b_add_course" data-type="button"/>

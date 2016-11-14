@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Manage Courses</title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel="stylesheet" href="/stylesheets/semantic.min.css"/>
+    <script src="/javascripts/jquery-3.1.0.min.js"></script>
+    <script src="/javascripts/script.manageStudents.js"></script>
+    <style>
+        body {
+        }
+    </style>
+</head>
+<body>
+<h1 class="ui teal header" style="margin-top: 32px ; margin-left: 32px ; margin-bottom: 32px">Dashboard</h1>
+<div class="ui divider"></div>
+<div class="container" style="padding: 32px">
+    <div class="ui stacked segment">
+        <h2 class="ui header">View or Delete Students</h2>
+        <div class="ui large form" id="search_form">
+            <div class="ui grid">
+                <div class="eight wide column">
+                    <div class="field">
+                        <input type="text" name="studentIdSearch" placeholder="Student Id"/>
+                    </div>
+                </div>
+                <div class="four wide column">
+                    <input type="button" class="ui fluid large teal button" value="View" id="b_view_student">
+                </div>
+                <div class="four wide column">
+                    <input type="button" class="ui fluid large teal button" value="Delete" id="b_delete_student">
+                </div>
+            </div>
+        </div>
+    </div>
+    <form class="ui large form" id="student_form">
+        <div class="ui stacked segment">
+            <h2 class="ui header">Add or Update Student details</h2>
+            <div class="ui grid">
+                <div class="ui horizontal divider">Personal Details</div>
+                <div class="eight wide column">
+                    <div class="field">
+                        <label>Student Name</label>
+                        <input name="studentName" type="text" placeholder="Student Name"/>
+                    </div>
+                </div>
+                <div class="eight wide column">
+                    <div class="field">
+                        <label>Student Age</label>
+                        <input name="studentAge" type="number" placeholder="Age"/>
+                    </div>
+                </div>
+                <div class="sixteen wide column">
+                    <div class="field">
+                        <label>Email</label>
+                        <input name="email" type="text" placeholder="Email"/>
+                    </div>
+                </div>
+                <div class="sixteen wide column">
+                    <div class="field">
+                        <label>Address</label>
+                        <input name="address" type="text" placeholder="Address"/>
+                    </div>
+                </div>
+
+                <div class="eight wide column">
+                    <div class="field">
+                        <label>Registration Number/Username</label>
+                        <input name="regId" type="text" placeholder="Registration Number"/>
+                    </div>
+                </div>
+
+                <div class="eight wide column">
+                    <div class="field">
+                        <label>Password</label>
+                        <input name="password" type="password" placeholder="Password"/>
+                    </div>
+                </div>
+
+                <div class="ui horizontal divider">Academic Details</div>
+
+                <div class="eight wide column">
+                    <div class="field">
+                        <label>Program</label>
+                        <input name="program" type="text" placeholder="Program"/>
+                    </div>
+                </div>
+
+                <div class="eight wide column">
+                    <div class="field">
+                        <label>Semester</label>
+                        <input name="semester" type="text" placeholder="Semester"/>
+                    </div>
+                </div>
+
+                <div class="eight wide column">
+                    <input type="button" value="Add" class="ui fluid large teal button" id="b_add_student"/>
+                </div>
+
+                <div class="eight wide column">
+                    <input type="button" value="Update" class="ui fluid large teal button" id="b_update_student"/>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

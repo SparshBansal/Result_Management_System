@@ -7,7 +7,6 @@ var express = require('express');
 
 var router = express.Router();
 
-
 router.get('/', function (req, res, next) {
     Course.find({}, function (error, course) {
         if (error) {
@@ -25,23 +24,35 @@ router.post('/add', function (req, res, next) {
     var semesters = semestersObject.data;
 
 
-
     var newProgram = new Program({
-        code : code,
-        name : name,
-        semesterCount : semesterCount,
-        semester : semesters
+        code: code,
+        name: name,
+        semesterCount: semesterCount,
+        semester: semesters
     });
 
     console.log(semesters);
 
-    newProgram.save(function(error){
-        if(error){
+    newProgram.save(function (error) {
+        if (error) {
             console.log("Save Error Occurred");
             return next(error);
         }
-        return res.send({message:"Data Successfully saved",redirect : '/dashboard/manageProgram/'});
+        return res.send({message: "Data Successfully saved", redirect: '/dashboard/manageProgram/'});
     })
+});
+
+router.get('/view', function (req, res, next) {
+    var programCode = req.query.programCode;
+    Program.findOne({code: programCode}, function (error, program) {
+        if (error) {
+            return next(error);
+        }
+
+        var semestersArr = program.semester;
+        console.log(semestersArr);
+        return res.render('dashboard_manageProgram_view',{semesters : semestersArr});
+    });
 });
 
 module.exports = router;

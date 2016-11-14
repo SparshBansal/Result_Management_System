@@ -9,13 +9,14 @@ var SALT_FACTOR = 10;
 var memberSchema = mongoose.Schema({
     username: {type: String, required: true , unique : true},
     password: {type: String, required: true},
+    name : { type : String , required : true},
     memberType: {type: Number, required: true},
     address: {type: String},
     age: {type: Number},
     email: {type: String}
 });
 
-memberSchema.methods.name = function () {
+memberSchema.methods.getName = function () {
     return this.username;
 };
 
