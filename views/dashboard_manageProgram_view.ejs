@@ -20,10 +20,22 @@
                 <th>
                     Course
                 </th>
+                <th>
+                    Maximum Marks
+                </th>
+                <th>
+                    Credits
+                </th>
+                <th>
+                    Hours
+                </th>
             </tr>
             <% semester.forEach(function(course){ %>
             <tr>
-                <td><%= course %></td>
+                <td><%= course.courseName %></td>
+                <td><%= course.maxMarks %></td>
+                <td><%= course.credits %></td>
+                <td><%= course.hours %></td>
             </tr>
             <% }); %>
         </table>

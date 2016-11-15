@@ -22,23 +22,28 @@ $(document).ready(function () {
         console.log(semester);
 
         var semesterObject = {
-            data : semester
-        }
+            data: semester
+        };
 
-        $.post('/dashboard/manageProgram/add',{
-            code : programCode,
-            name : programName,
+        $.post('/dashboard/manageProgram/add', {
+            code: programCode,
+            name: programName,
             semesterCount: num_sems,
-            semesters : JSON.stringify(semesterObject)
-        }).done(function(data){
-            window.location.href = data.redirect;
+            semesters: JSON.stringify(semesterObject)
+        }).done(function (data) {
+            if (data.redirect)
+                window.location.href = data.redirect;
         });
     });
 
-    $('#b_view_program').click(function(event){
+    $('#b_view_program').click(function (event) {
         var programCode = $(document).find('input[name="programNameSearch"]').val();
-        $.get('/dashboard/manageProgram/view',{programCode:programCode}).done(function(data){
-            document.write(data);
+        $.get('/dashboard/manageProgram/view', {programCode: programCode}).done(function (data) {
+            if (data.redirect) {
+                window.location.href = data.redirect;
+            }
+            else
+                document.write(data);
         });
     });
 
@@ -109,7 +114,7 @@ var getCourseDiv = function (course) {
 
 var getNewSemesterFormChild = function () {
     var segmentHtml = `<div class="ui stacked segment " id="semester_` + current_sem.toString() + `" data-index="` + current_sem.toString() + `">
-    <h3 class="ui header">Semester `+ (current_sem + 1).toString() +` </h3>
+    <h3 class="ui header">Semester ` + (current_sem + 1).toString() + ` </h3>
     <form class="ui large form" id="semster_form">
         <div class="ui grid">
             <div class="sixteen wide column">
