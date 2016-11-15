@@ -26,7 +26,8 @@ router.post('/add', function (req, res, next) {
         if (saveError) {
             res.send({message: "Could not add to DB"});
         }
-        res.send({message: "Successfully added to Db"});
+        req.flash('info' , "Successfully added to DB");
+        return res.send({redirect : '/dashboard/manageCourse/'});
     });
 
 });
@@ -42,7 +43,7 @@ router.get('/view', function (req, res, next) {
             else {
                 if (!course) {
                     req.flash('error', 'course does not exist');
-                    res.send({redirect: '/dashboard/manageCourse'});
+                    res.send({redirect: '/dashboard/manageCourse/'});
                 }
                 else {
                     res.send({course : course});
@@ -56,10 +57,13 @@ router.get('/view', function (req, res, next) {
 router.post('/delete',function(req,res,next){
     Course.remove({courseName : courseName},function(error){
         if(error){
-            res.send({message : "Error deleting record"});
+            req.flash('error' , 'Course not deleted');
+            return res.send({redirect : '/dashboard/manageCourse/'});
+
         }
         else {
-            res.send({message : "Course Successfully deleted"});
+            req.flash('info','Course successfully added');
+            return res.send({redirect : '/dashboard/manageCourse/'});
         }
     })
 });
@@ -77,10 +81,12 @@ router.post('/update',function(req,res,next){
         hours: hours
     },function(error,course){
         if(error){
-            res.send({message : "Error updating record"});
+            req.flash('error','Course not deleted');
+            res.send({redirect : '/dashboard/manageCourse/'});
         }
         else{
-            res.send({message : "Course Successfully Updated"});
+            req.flash('info','Successfully Deleted');
+            res.send({redirect : '/dashboard/manageCourse/'});
         }
     });
 });

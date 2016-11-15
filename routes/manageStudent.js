@@ -31,6 +31,10 @@ router.post('/add', function (req, res, next) {
 
     member.save(function (error, member) {
         if (error) {
+            if(error.code == 11000){
+                req.flash('error','Duplicate ID');
+                return res.send({redirect : '/dashboard/manageStudent/'});
+            }
             console.log(error.toString());
             return next(error);
         }
@@ -45,12 +49,21 @@ router.post('/add', function (req, res, next) {
             semester: Number(student.semester)
         });
 
-        newStudent.save(function (error) {
+        newStudent.save(function (error,student) {
             if (error) {
+                if(error.code == 11000){
+                    req.flash('error','Duplicate ID');
+                    return res.send({redirect : '/dashboard/manageStudent/'});
+                }
                 console.log(error);
                 return next(error);
             }
-            return res.send({message: "Student Succesfully saved"});
+            if(!student){
+                req.flash('error','Duplicate Student ID');
+                return res.send({redirect : '/dashboard/manageStudent/'});
+            }
+            req.flash('info','Student Successfully Added');
+            return res.send({redirect : '/dashboard/manageStudent/'});
         });
 
     });
@@ -77,7 +90,8 @@ router.post('/update', function (req, res, next) {
             if (error) {
                 next(error);
             }
-            return res.send({message: 'Successfully update'});
+            req.flash('info','Member Successfully updated');
+            return res.send({redirect : '/dashboard/manageStudent/'});
         });
     });
 
@@ -90,7 +104,8 @@ router.post('/delete', function (req, res, next) {
             return next(error);
         }
         if (!student) {
-            return req.flash('error', 'student not found');
+            req.flash('error','Invalid Student Id');
+            return res.send({redirect : '/dashboard/manageStudent/'});
         }
         memberId = student.memberId;
         Student.remove({_id: student._id}, function (error) {
@@ -101,7 +116,8 @@ router.post('/delete', function (req, res, next) {
                 if (error) {
                     return next(error);
                 }
-                return res.send({message: 'successfully deleted'});
+                req.flash('info','Member Successfully removed');
+                return res.send({redirect : '/dashboard/manageStudent/'});
             });
         })
 
@@ -115,15 +131,16 @@ router.get('/view', function (req, res, next) {
             return next(error);
         }
         if (!student) {
-            req.flash('error', 'Student not found');
-            return;
+            req.flash('error','Invalid Student ID');
+            return res.send({redirect : '/dashboard/manageStudent/'});
         }
         Member.findOne({_id: student.memberId}, function (error, member) {
             if (error) {
                 return next(error);
             }
             if (!member) {
-                return req.flash('error', 'Student not found');
+                req.flash('info','Invalid Student Id');
+                return res.send({redirect : '/dashboard/manageStudent/'});
             }
             var result = {};
 

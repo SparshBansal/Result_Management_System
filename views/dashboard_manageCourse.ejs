@@ -15,6 +15,20 @@
 <h1 class="ui teal header" style="margin-top: 32px ; margin-left: 32px ; margin-bottom: 32px">Dashboard</h1>
 <div class="ui divider"></div>
 <div class="container" style="padding: 32px">
+    <% errors.forEach(function(error){ %>
+    <div class="ui warning message">
+        <div class="header">
+            <%= error %>
+        </div>
+    </div>
+    <% }); %>
+    <% infos.forEach(function(info){ %>
+    <div class="ui positive message">
+        <div class="header">
+            <%= info %>
+        </div>
+    </div>
+    <% }); %>
     <div class="ui stacked segment">
         <h2 class="ui header">View or Delete Course</h2>
         <div class="ui large form" id="search_form">

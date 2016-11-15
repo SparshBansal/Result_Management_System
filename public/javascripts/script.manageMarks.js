@@ -23,7 +23,9 @@ $(document).ready(function () {
         postMarks.semester = marksData.semester;
         postMarks.regId = studentId;
         $.post('/dashboard/manageMarks/add',{postMarks : JSON.stringify(postMarks)}).done(function (data) {
-
+            if(data.redirect){
+                window.location.href = data.redirect;
+            }
         });
     });
 
@@ -39,9 +41,13 @@ $(document).ready(function () {
             semester: semester
         }).done(function (data) {
             if (data) {
+                if(data.redirect){
+                    window.location.href = data.redirect;
+                }
                 console.log(data);
                 marksData = data;
-                $('#marksContainer').empty().append(getMarksForm(data.marks));
+                console.log(data.status);
+                $('#marksContainer').empty().append(getMarksForm(data.marks,data.status));
             }
         });
     });
@@ -57,7 +63,9 @@ $(document).ready(function () {
         postMarks.semester = marksData.semester;
         postMarks.regId = studentId;
         $.post('/dashboard/manageMarks/update',{postMarks : JSON.stringify(postMarks)}).done(function (data) {
-
+            if(data.redirect){
+                window.location.href = data.redirect;
+            }
         });
     });
 
@@ -71,25 +79,15 @@ $(document).ready(function () {
         postMarks.semester = semester;
 
         $.post('/dashboard/manageMarks/delete',{postMarks : JSON.stringify(postMarks)}).done(function (data) {
-            console.log(data.message);
+            if(data.redirect){
+                window.location.href = data.redirect;
+            }
         })
 
     });
 
-    var clearFields = function () {
 
-        var name = $('#student_form').find('input[name="studentName"]').val(null);
-        var age = $('#student_form').find('input[name="studentAge"]').val(null);
-        var email = $('#student_form').find('input[name="email"]').val(null);
-        var address = $('#student_form').find('input[name="address"]').val(null);
-        var regId = $('#student_form').find('input[name="regId"]').val(null);
-        var password = $('#student_form').find('input[name="password"]').val(null);
-        var program = $('#student_form').find('input[name="program"]').val(null);
-        var semester = $('#student_form').find('input[name="semester"]').val(null);
-
-    }
-
-    var getMarksForm = function (marks) {
+    var getMarksForm = function (marks,status) {
         var html = ejs.render(`<div class="ui stacked segment">
     <h3 class="ui header">Marks Details</h3>
     <form class="ui large form" id="marks_form">
@@ -104,18 +102,24 @@ $(document).ready(function () {
             </div>
             <% } %>
             <%});%>
-           
+            <% if(status == 1){ %>
             <div class="sixteen wide column">
-                <input type="button" value="Add Marks" class="ui fluid large teal button" id="b_add_marks"/>
+                <input type="button" value="Add Marks" class="ui fluid large teal button" id="b_add_marks" disabled/>
             </div>
-
             <div class="sixteen wide column">
                 <input type="button" value="Update Marks" class="ui fluid large teal button" id="b_update_marks"/>
             </div>
-          
+            <% } else { %>
+            <div class="sixteen wide column">
+                <input type="button" value="Add Marks" class="ui fluid large teal button" id="b_add_marks"/>
+            </div>
+            <div class="sixteen wide column">
+                <input type="button" value="Update Marks" class="ui fluid large teal button" id="b_update_marks" disabled/>
+            </div>
+            <% } %>
         </div>
     </form>
-</div>`, {marks: marks});
+</div>`, {marks: marks,status:status});
         return html;
     }
 });

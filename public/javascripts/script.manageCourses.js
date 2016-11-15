@@ -18,7 +18,9 @@ $(document).ready(function () {
             credits: credits
         }).done(function (data) {
             clearFields();
-            console.log(data.message);
+            if(data.redirect){
+                window.location.href = data.redirect;
+            }
         });
 
     });
@@ -29,6 +31,11 @@ $(document).ready(function () {
         $.get('/dashboard/manageCourse/view',{
             name : courseName
         }).done(function(data){
+
+            if(data.redirect){
+                window.location.href = data.redirect;
+            }
+
             if(data.course){
                 console.log(data.course);
                 $('#course_form').find('input[name="courseName"]').val(data.course.courseName);
@@ -46,6 +53,11 @@ $(document).ready(function () {
             name : courseName
         }).done(function(data){
             clearFields();
+
+            if(data.redirect){
+                window.location.href = data.redirect;
+            }
+
             console.log(data.message);
         });
     });
@@ -65,6 +77,11 @@ $(document).ready(function () {
             hours: hours,
             credits: credits
         }).done(function (data) {
+
+            if(data.redirect){
+                window.location.href = data.redirect;
+            }
+
             clearFields();
             console.log(data.message);
         });

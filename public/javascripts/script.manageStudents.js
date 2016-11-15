@@ -23,6 +23,9 @@ $(document).ready(function () {
         $.post('/dashboard/manageStudent/add', {
             student : JSON.stringify(student)
         }).done(function (data) {
+            if(data.redirect){
+                window.location.href = data.redirect;
+            }
             clearFields();
             console.log(data.message);
         });
@@ -35,6 +38,9 @@ $(document).ready(function () {
         $.get('/dashboard/manageStudent/view',{
             regId : regId
         }).done(function(data){
+            if(data.redirect){
+                window.location.href = data.redirect;
+            }
             if(data){
                 var student = data.data.student;
                 var member = data.data.member;
@@ -59,6 +65,9 @@ $(document).ready(function () {
         $.post('/dashboard/manageStudent/delete',{
             regId : regId
         }).done(function(data){
+            if(data.redirect){
+                window.location.href = data.redirect;
+            }
             clearFields();
             console.log(data.message);
         });
@@ -82,6 +91,9 @@ $(document).ready(function () {
         $.post('/dashboard/manageStudent/update', {
             student : JSON.stringify(student)
         }).done(function (data) {
+            if(data.redirect){
+                window.location.href = data.redirect;
+            }
             clearFields();
             console.log(data.message);
         });

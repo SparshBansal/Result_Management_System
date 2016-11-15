@@ -11,23 +11,24 @@
 <body>
 <h1 class="ui teal header" style="margin-top: 32px ; margin-left: 32px ; margin-bottom: 32px">Dashboard</h1>
 <div class="ui divider"></div>
-<% semesters.forEach(function(semester,index){ %>
-<div class="ui horizontal divider">Semester <%= index+1 %></div>
-<div class="ui stacked segment">
-    <table class="ui celled table">
-        <tr>
-            <th>
-                Course
-            </th>
-        </tr>
-        <% semester.forEach(function(course){ %>
+<div class="container" style="padding: 32px">
+    <% semesters.forEach(function(semester, index){ %>
+    <h3 class="ui header">Semester <%= index + 1 %></h3>
+    <div class="ui stacked segment">
+        <table class="ui celled table">
+            <tr>
+                <th>
+                    Course
+                </th>
+            </tr>
+            <% semester.forEach(function(course){ %>
             <tr>
                 <td><%= course %></td>
             </tr>
-        <% }); %>
-    </table>
+            <% }); %>
+        </table>
+    </div>
+    <% }); %>
 </div>
-<% }); %>
-
 </body>
 </html>
