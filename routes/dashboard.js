@@ -7,6 +7,7 @@ var manageCourse = require('./manageCourse');
 var manageProgram = require('./manageProgram');
 var manageStudent = require('./manageStudent');
 var manageMarks = require('./manageMarks');
+var generateReport = require('./generateReport');
 
 var router = express.Router();
 
@@ -21,4 +22,6 @@ router.use('/manageCourse' , manageCourse);
 router.use('/manageProgram' , manageProgram);
 router.use('/manageStudent' , manageStudent);
 router.use('/manageMarks',manageMarks);
+router.use('/generateReport',generateReport);
+
 module.exports = router;

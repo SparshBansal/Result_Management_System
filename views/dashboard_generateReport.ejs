@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Generate Report</title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel="stylesheet" href="/stylesheets/semantic.min.css"/>
+    <script src="/javascripts/jquery-3.1.0.min.js"></script>
+    <script src="/javascripts/script.manageStudents.js"></script>
+    <style>
+        body {
+        }
+    </style>
+</head>
+<body>
+<h1 class="ui teal header" style="margin-top: 32px ; margin-left: 32px ; margin-bottom: 32px">Dashboard</h1>
+<div class="ui divider"></div>
+<div class="container" style="padding: 32px">
+    <% errors.forEach(function(error){ %>
+    <div class="ui warning message">
+        <div class="header">
+            <%= error %>
+        </div>
+    </div>
+    <% }); %>
+    <% infos.forEach(function(info){ %>
+    <div class="ui positive message">
+        <div class="header">
+            <%= info %>
+        </div>
+    </div>
+    <% }); %>
+    <div class="ui stacked segment">
+        <h2 class="ui header">Generate Reports</h2>
+        <form class="ui large form" id="search_form" action="/dashboard/generateReport/report" method="post">
+            <div class="ui grid">
+                <div class="ten wide column">
+                    <div class="field">
+                        <input type="text" name="regId" placeholder="Student Id"/>
+                    </div>
+                </div>
+                <div class="six wide column">
+                    <input type="submit" class="ui fluid large teal button" value="Generate Report"
+                           id="b_generate_report">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

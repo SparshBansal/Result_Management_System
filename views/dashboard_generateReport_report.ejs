@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Generate Report</title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel="stylesheet" href="/stylesheets/semantic.min.css"/>
+    <script src="/javascripts/jquery-3.1.0.min.js"></script>
+    <style>
+        body {
+        }
+    </style>
+</head>
+<body>
+<h1 class="ui teal header" style="margin-top: 32px ; margin-left: 32px ; margin-bottom: 32px">Dashboard</h1>
+<div class="ui divider"></div>
+<div class="container" style="padding: 32px">
+    <% errors.forEach(function(error){ %>
+    <div class="ui warning message">
+        <div class="header">
+            <%= error %>
+        </div>
+    </div>
+    <% }); %>
+    <% infos.forEach(function(info){ %>
+    <div class="ui positive message">
+        <div class="header">
+            <%= info %>
+        </div>
+    </div>
+    <% }); %>
+    <% report.forEach(function(semester){ %>
+    <h3 class="ui header">Semester <%= semester.semester %></h3>
+    <div class="ui stacked segment">
+        <table class="ui celled table">
+            <tr>
+                <th>
+                    Course
+                </th>
+                <th>
+                    Obtained Marks
+                </th>
+            </tr>
+            <% for(var subject in semester.marks){ %>
+            <% if(semester.marks.hasOwnProperty(subject)){ %>
+
+            <tr>
+                <td><%= subject %></td>
+                <td><%= semester.marks[subject] %></td>
+            </tr>
+            <% } %>
+            <% } %>
+            <tr>
+                <td><b>Average :</b></td>
+                <td><b><%= semester.average %></b></td>
+            </tr>
+        </table>
+    </div>
+    <% }); %>
+</div>
+</body>
+</html>

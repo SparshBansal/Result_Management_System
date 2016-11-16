@@ -1,0 +1,89 @@
+var express = require('express');
+var Student = require('../models/Student');
+var Marks = require('../models/Marks');
+var Course = require('../models/Course');
+
+var router = express.Router();
+
+router.get('/', function (req, res, next) {
+    console.log("Got to request handler");
+    return res.render('dashboard_generateReport');
+});
+
+router.post('/report', function (req, res, next) {
+    console.log('Got to request handler');
+    var regId = req.body.regId;
+    Student.findOne({registrationId: regId}, function (error, student) {
+        if (error) {
+            console.log(error);
+            return next(error);
+        }
+        if (!student) {
+            req.flash('error', 'Invalid Student Id');
+            return res.redirect('/dashboard/generateReport');
+        }
+        var url = '/dashboard/generateReport/report?regId=' + regId.toString();
+        return res.redirect(url);
+    });
+});
+
+router.get('/report', function (req, res, next) {
+    var regId = req.query.regId;
+    Student.findOne({registrationId: regId}, function (error, student) {
+        if (error) {
+            console.log(error);
+            return next(error);
+        }
+        if (!student) {
+            req.flash('error', 'Invalid Student Id');
+            res.redirect('/dashboard/generateReport');
+        }
+        Marks.find({studentId: student._id}).sort({semester: 1}).exec(function (error, marks) {
+            var report = [];
+            var promises = marks.map(function (semesterMarks,idx) {
+                var result = {};
+                result.marks = semesterMarks.marks;
+                result.semester = semesterMarks.semester;
+                var scored =0 , total = 0;
+                var qSubject = [];
+                var maxMarks = {};
+                for(var subject in semesterMarks.marks){
+                    if(semesterMarks.marks.hasOwnProperty(subject)){
+                        qSubject.push(subject);
+                    }
+                }
+
+                var qPromise = new Promise(function(resolve,reject){
+                   Course.find({courseName : {$in : qSubject}},function (error, courses) {
+                       if(error){
+                           return reject(error);
+                       }
+                       courses.forEach(function (course) {
+                           maxMarks[course.courseName] = course.maxMarks;
+                       });
+                       resolve();
+                   });
+                }).then(function () {
+                    for(var subject in semesterMarks.marks){
+                        if(semesterMarks.marks.hasOwnProperty(subject)){
+                            scored += semesterMarks.marks[subject];
+                            total += maxMarks[subject];
+                        }
+                    }
+                    result.average = (scored/total)*100;
+                    report[idx] = result;
+
+                });
+                return qPromise;
+            });
+
+            Promise.all(promises).then(function () {
+                console.log(report);
+                return res.render('dashboard_generateReport_report',{report : report});
+            });
+
+        });
+    });
+});
+
+module.exports = router;
